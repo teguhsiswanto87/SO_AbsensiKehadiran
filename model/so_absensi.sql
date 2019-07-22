@@ -16,7 +16,8 @@ create table administrator(
     username varchar(50) primary key,
     nama_lengkap varchar(50) not null,
     url_photo varchar(50),
-    passwod varchar(50) not null
+    password varchar(50) not null,
+    id_session varchar(50)
 )Engine=InnoDB;
 
 create table anggota(
@@ -64,3 +65,29 @@ create table piket(
     constraint fk_piket_idjenispiket foreign key(id_jenis_piket) references jenis_piket(id_jenis_piket)
 
 )Engine=InnoDB;
+
+
+-- untuk mengelola modul/data menu pada halaman administrator
+create table module(
+    module_id int primary key auto_increment,
+    module_name varchar(50) not null,
+    link varchar(50),
+    icon varchar(50),
+    active enum('Y','N') not null default 'Y'
+)Engine=InnoDB;
+
+-- ### INSERT DATA MODULE
+insert into module values
+(1, "beranda","?m=beranda","fas fa-chart-pie mr-3","Y"),
+(2, "module","?m=module","fas fa-table mr-3","Y"),
+(3, "piket","?m=piket","fas fa-money-bill-alt mr-3","Y"),
+(4, "anggota","?m=anggota","fas fa-users mr-3","Y"),
+(5, "pengguna","?m=pengguna","fas fa-user mr-3","Y"),
+(6, "absensi","?m=absensi","fas fa-table mr-3","Y");
+
+-- ### INSERT DATA ADMINISTRATOR
+insert into administrator(username, nama_lengkap,url_photo,password) values
+('yusrizal','Yusrizal Falahan','https://akademik.unikom.ac.id/foto/10117043.jpg',sha1('yusrizal')),
+('donny','Donny Aditya Respati','https://akademik.unikom.ac.id/foto/10117047.jpg',sha1('donny')),
+('teguh','Teguh Siswanto','https://akademik.unikom.ac.id/foto/10117065.jpg',sha1('teguh')),
+('daffa','Daffa Qinthara Senjaya','https://akademik.unikom.ac.id/foto/10117080.jpg',sha1('daffa'));
