@@ -78,12 +78,14 @@ create table module(
 
 -- ### INSERT DATA MODULE
 insert into module values
-(1, "beranda","?m=beranda","fas fa-chart-pie mr-3","Y"),
-(2, "module","?m=module","fas fa-table mr-3","Y"),
-(3, "piket","?m=piket","fas fa-money-bill-alt mr-3","Y"),
-(4, "anggota","?m=anggota","fas fa-users mr-3","Y"),
-(5, "pengguna","?m=pengguna","fas fa-user mr-3","Y"),
-(6, "absensi","?m=absensi","fas fa-table mr-3","Y");
+(1, "beranda","?m=beranda","fa-chart-pie","Y"),
+(2, "module","?m=module","fa-clone","Y"),
+(3, "jenis piket","?m=jenispiket","fa-tags","Y"),
+(4, "piket","?m=piket","fa-calendar","Y"),
+(5, "prodi","?m=prodi","fa-ribbon","Y"),
+(6, "anggota","?m=anggota","fa-users","Y"),
+(7, "pengguna","?m=pengguna","fa-user","Y"),
+(8, "absensi","?m=absensi","fa-table","Y");
 
 -- ### INSERT DATA ADMINISTRATOR
 insert into administrator(username, nama_lengkap,url_photo,password) values
@@ -91,3 +93,13 @@ insert into administrator(username, nama_lengkap,url_photo,password) values
 ('donny','Donny Aditya Respati','https://akademik.unikom.ac.id/foto/10117047.jpg',sha1('donny')),
 ('teguh','Teguh Siswanto','https://akademik.unikom.ac.id/foto/10117065.jpg',sha1('teguh')),
 ('daffa','Daffa Qinthara Senjaya','https://akademik.unikom.ac.id/foto/10117080.jpg',sha1('daffa'));
+
+insert into prodi(id_prodi, nama_prodi) values
+(1,'Teknik Informatika'),
+(2,'Teknik Komputer'),
+(3,'Sistem Informasi'),
+(4,'Desain Komunikasi Visual'),
+(5,'Teknik Arsitektur'),
+(6,'Teknik Komputer'),
+(7,'Teknik Elektro'),
+(8,'Sistem Komputer');

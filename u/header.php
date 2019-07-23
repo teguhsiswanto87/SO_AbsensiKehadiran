@@ -7,24 +7,24 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
     <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-            <strong class="blue-text">
-                <img class="rounded-circle" src="<?php echo $_SESSION['photo'];?>"  style="width: 2rem">
-            </strong>
-        </a>
+<!--        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">-->
+<!--            <strong class="blue-text">-->
+<!--                MDB-->
+<!--            </strong>-->
+<!--        </a>-->
 
         <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
+<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
 
         <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
 
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <!--<li class="nav-item active">
                     <a class="nav-link waves-effect" href="#">Home
                         <span class="sr-only">(current)</span>
                     </a>
@@ -43,26 +43,23 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
                     <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/"
                        target="_blank">Free
                         tutorials</a>
-                </li>
+                </li>-->
             </ul>
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="https://github.com/mdbootstrap/bootstrap-material-design"
                        class="nav-link border border-light rounded waves-effect"
                        target="_blank">
-                        <i class="fab fa-github mr-2"></i>MDB GitHub
+                        <img class="fab mr-2 rounded-circle" src="<?php echo $_SESSION['photo']; ?>"
+                             style="width: 1.75rem">
+                        </i><?php echo $_SESSION['nama']; ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="logout.php" class="nav-link waves-effect" onclick="return confirm(`Keluar Dari Sistem Administrator Absensi ?`)">
+                        Logout
                     </a>
                 </li>
             </ul>

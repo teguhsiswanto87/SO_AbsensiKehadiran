@@ -1915,7 +1915,7 @@ defaults._set('bar', {
 
 defaults._set('horizontalBar', {
 	hover: {
-		mode: 'index',
+		mode: 'index.php',
 		axis: 'y'
 	},
 
@@ -1971,7 +1971,7 @@ defaults._set('horizontalBar', {
 				return datasetLabel + ': ' + item.xLabel;
 			}
 		},
-		mode: 'index',
+		mode: 'index.php',
 		axis: 'y'
 	}
 });
