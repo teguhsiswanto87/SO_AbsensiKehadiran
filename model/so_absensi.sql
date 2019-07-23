@@ -105,4 +105,7 @@ insert into prodi(id_prodi, nama_prodi) values
 (7,'Teknik Elektro'),
 (8,'Sistem Komputer');
 
--- insert into
+-- insert into absensi
+insert into absensi values(null, 'rfid462', '2019-07-03', '20:29',null,'datang');
+insert into absensi values(null, 'rfid557', '2019-07-03', '19:27',null,'datang');
+insert into absensi values(null, 'rfid557', date('Y-m-d'), date('h:i'),nul,'datang');

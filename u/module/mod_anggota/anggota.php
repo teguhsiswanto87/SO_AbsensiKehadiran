@@ -81,6 +81,10 @@ switch ($act) {
                 </td>
                 
                 <td class='center aligned'>
+                    <form action='module/mod_absensi/aksi_absensi.php?m=absensi&act=datang' method='post'>
+                        <input type='hidden' value='$data[id_rfid]' name='id_rfid'>
+                        <input type='submit' value='Datang'>| 
+                    </form>
                     <a href='?m=$m&act=edit&id=$data[id_rfid]'>Edit</a> | ";
             if ($data['id_rfid'] != "") {
                 echo "<a href='$aksi?m=$m&act=hapus&id=$data[id_rfid]' id='btn-delete' style='cursor: pointer;'

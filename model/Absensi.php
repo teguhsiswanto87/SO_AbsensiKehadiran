@@ -68,7 +68,7 @@ class Absensi
     }
 
 // update data absensi
-    function updateAbsensi($id_absensi, $id_rfid, $tgl_kehadiran, $waktu_datang, $waktu_pulang, $status)
+    function updateAbsensiForAdmin($id_absensi, $id_rfid, $tgl_kehadiran, $waktu_datang, $waktu_pulang, $status)
     {
         $conn = dbConnect();
         if ($conn->connect_errno == 0) {

@@ -19,6 +19,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
         include "module/mod_jenispiket/jenispiket.php";
     } elseif ($_GET['m'] == 'riset') {
         include "module/mod_riset/riset.php";
+    } elseif ($_GET['m'] == 'absensi') {
+        include "module/mod_absensi/absensi.php";
     } else {
         echo "<br><br>Modul <b>$_GET[m]</b> sedang dibuat";
     }

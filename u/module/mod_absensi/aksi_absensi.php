@@ -1,30 +1,23 @@
 <?php
 
 include "../../../config/functions.php";
-include "../../../model/Anggota.php";
+include "../../../model/Absensi.php";
 
 $m = $_GET['m'];
 $act = $_GET['act'];
-$anggota = new Anggota();
+$absensi = new Absensi();
 $conn = dbConnect();
 // input modul
-if ($m === 'anggota' && $act == 'tambah') {
+if ($m === 'absensi' && $act == 'datang') {
     $id_rfid = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_rfid']), 1));
-    $id_prodi = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_prodi']), 0));
-    $id_riset = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_riset']), 0));
-    $username = $conn->real_escape_string(my_inputformat(anti_injection($_POST['username']), 0));
-    $nim = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nim']), 0));
-    $nama_anggota = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nama_anggota']), 1));
 
-    $linkGambar = "https://akademik.unikom.ac.id/foto/$nim.jpg";
-
-    $insert = $anggota->insertAnggota($id_rfid, $username, $id_riset, $id_prodi, $nim, $nama_anggota, date("Y-m-d"), $linkGambar);
-    if ($insert) {
+    $datang = $absensi->insertDatangAbsensi($id_rfid, date("Y-m-d"), date("h:i"));
+    if ($datang) {
         header("location: ../../media.php?m=" . $m);
     } else {
         echo "Gagal Memasukkan data $m ";
     }
-} elseif ($m == 'anggota' && $act == 'update') {
+} elseif ($m == 'absensi' && $act == 'update') {
     $id_rfid = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_rfid']), 0));
     $id_prodi = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_prodi']), 0));
     $id_riset = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_riset']), 0));
@@ -32,14 +25,14 @@ if ($m === 'anggota' && $act == 'tambah') {
     $nim = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nim']), 0));
     $linkGambar = "https://akademik.unikom.ac.id/foto/$nim.jpg";
 
-    $update = $anggota->updateAnggota($id_rfid, $id_riset, $id_prodi, $nim, $nama_anggota, $linkGambar);
+    $update = $absensi->updateAnggota($id_rfid, $id_riset, $id_prodi, $nim, $nama_anggota, $linkGambar);
     if ($update) {
         header("location: ../../media.php?m=" . $m);
     } else {
         echo "Gagal memperbarui data $m";
     }
-} elseif ($m == 'anggota' && $act == 'hapus') {
-    $delete = $anggota->deleteAnggota($_GET['id']);
+} elseif ($m == 'absensi' && $act == 'hapus') {
+    $delete = $absensi->deleteAnggota($_GET['id']);
     if ($delete) {
         header("location: ../../media.php?m=" . $m);
     } else {
