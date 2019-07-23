@@ -190,19 +190,26 @@ switch ($act) {
                             <small>Referensi ikon: <a href=\"https://fontawesome.com/icons?d=gallery\" target=\"_blank\">Open
                                     New Tab</a></small>
                         </div>
-                    </div>
+                    </div>";
+        $modul_mana = isset($_GET['id']) ? $_GET['id'] : "";
+        if ($modul_mana == '2') {
+            echo "<small>Module Selalu Ditampilkan</small>";
+        } else {
 
+            echo "
                     <div class=\"form-row\">
                         <div class=\"form-group col-md-6\">
                             <label>Aktif</label>
                             <div class=\"ui toggle checkbox\">";
-        ($data['active'] == 'Y') ? $checked = 'checked' : $checked = '';
-        echo "
+            ($data['active'] == 'Y') ? $checked = 'checked' : $checked = '';
+            echo "
                                 <input type=\"checkbox\" name=\"active\" value=\"Y\" $checked>
                                 <label>Tampilkan di Menu Admin</label>
                             </div>
                         </div>
-                    </div>
+                    </div>";
+        }
+        echo "
                     <button class=\"btn btn-primary float-sm-right\" type=\"submit\">Perbarui</button>
                 </form>
     </div>";

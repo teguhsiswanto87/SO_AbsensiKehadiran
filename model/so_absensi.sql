@@ -40,7 +40,7 @@ create table absensi(
     id_rfid varchar(50) not null,
     tgl_kehadiran date not null,
     waktu_datang time not null,
-    waktu_pulang time not null,
+    waktu_pulang time,
     status varchar(50),
 
     constraint fk_absensi_idrfid foreign key(id_rfid) references anggota(id_rfid)
