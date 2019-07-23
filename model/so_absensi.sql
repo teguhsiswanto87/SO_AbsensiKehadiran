@@ -81,11 +81,12 @@ insert into module values
 (1, "beranda","?m=beranda","fa-chart-pie","Y"),
 (2, "module","?m=module","fa-clone","Y"),
 (3, "jenis piket","?m=jenispiket","fa-tags","Y"),
-(4, "piket","?m=piket","fa-calendar","Y"),
-(5, "prodi","?m=prodi","fa-ribbon","Y"),
-(6, "anggota","?m=anggota","fa-users","Y"),
-(7, "pengguna","?m=pengguna","fa-user","Y"),
-(8, "absensi","?m=absensi","fa-table","Y");
+(4, "riset","?m=riset","fa-search","Y"),
+(5, "piket","?m=piket","fa-calendar","Y"),
+(6, "prodi","?m=prodi","fa-ribbon","Y"),
+(7, "anggota","?m=anggota","fa-users","Y"),
+(8, "administrator","?m=administrator","fa-user","Y"),
+(9, "absensi","?m=absensi","fa-table","Y");
 
 -- ### INSERT DATA ADMINISTRATOR
 insert into administrator(username, nama_lengkap,url_photo,password) values
@@ -103,3 +104,5 @@ insert into prodi(id_prodi, nama_prodi) values
 (6,'Teknik Komputer'),
 (7,'Teknik Elektro'),
 (8,'Sistem Komputer');
+
+-- insert into

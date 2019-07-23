@@ -11,8 +11,14 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
         include "module/mod_module/module.php";
     } elseif ($_GET['m'] == 'prodi') {
         include "module/mod_prodi/prodi.php";
-    }elseif ($_GET['m'] == 'administrator') {
+    } elseif ($_GET['m'] == 'administrator') {
         include "module/mod_administrator/administrator.php";
+    } elseif ($_GET['m'] == 'anggota') {
+        include "module/mod_anggota/anggota.php";
+    } elseif ($_GET['m'] == 'jenispiket') {
+        include "module/mod_jenispiket/jenispiket.php";
+    } elseif ($_GET['m'] == 'riset') {
+        include "module/mod_riset/riset.php";
     } else {
         echo "<br><br>Modul <b>$_GET[m]</b> sedang dibuat";
     }
