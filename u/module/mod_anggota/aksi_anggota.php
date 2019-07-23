@@ -1,40 +1,45 @@
 <?php
 
 include "../../../config/functions.php";
-include "../../../model/Module.php";
+include "../../../model/Anggota.php";
 
 $m = $_GET['m'];
 $act = $_GET['act'];
-$module = new Module();
+$anggota = new Anggota();
 $conn = dbConnect();
 // input modul
-if ($m === 'module' && $act == 'tambah') {
-    $module_name = $conn->real_escape_string(my_inputformat(anti_injection($_POST['module_name']), 1));
-    $link = $conn->real_escape_string(my_inputformat(anti_injection($_POST['link']), 0));
-    $icon = $conn->real_escape_string(my_inputformat(anti_injection($_POST['icon']), 1));
-    $active = $conn->real_escape_string(my_inputformat(anti_injection(isset($_POST['active']) ? $_POST['active'] : 'N'), 0));
+if ($m === 'anggota' && $act == 'tambah') {
+    $id_rfid = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_rfid']), 1));
+    $id_prodi = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_prodi']), 0));
+    $id_riset = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_riset']), 0));
+    $username = $conn->real_escape_string(my_inputformat(anti_injection($_POST['username']), 0));
+    $nim = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nim']), 0));
+    $nama_anggota = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nama_anggota']), 1));
 
-    $insert = $module->insertModule($module_name, $link, $icon, $active);
+    $linkGambar = "https://akademik.unikom.ac.id/foto/$nim.jpg";
+
+    $insert = $anggota->insertAnggota($id_rfid, $username, $id_riset, $id_prodi, $nim, $nama_anggota, date("Y-m-d"), $linkGambar);
     if ($insert) {
         header("location: ../../media.php?m=" . $m);
     } else {
         echo "Gagal Memasukkan data $m ";
     }
-} elseif ($m == 'module' && $act == 'update') {
-    $module_id = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id']), 0));
-    $module_name = $conn->real_escape_string(my_inputformat(anti_injection($_POST['module_name']), 1));
-    $link = $conn->real_escape_string(my_inputformat(anti_injection($_POST['link']), 0));
-    $icon = $conn->real_escape_string(my_inputformat(anti_injection($_POST['icon']), 1));
-    $active = $conn->real_escape_string(my_inputformat(anti_injection(isset($_POST['active']) ? $_POST['active'] : 'N'), 0));
+} elseif ($m == 'anggota' && $act == 'update') {
+    $id_rfid = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_rfid']), 0));
+    $id_prodi = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_prodi']), 0));
+    $id_riset = $conn->real_escape_string(my_inputformat(anti_injection($_POST['id_riset']), 0));
+    $nama_anggota = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nama_anggota']), 1));
+    $nim = $conn->real_escape_string(my_inputformat(anti_injection($_POST['nim']), 0));
+    $linkGambar = "https://akademik.unikom.ac.id/foto/$nim.jpg";
 
-    $update = $module->updateModule($module_id, $module_name, $link, $icon, $active);
+    $update = $anggota->updateAnggota($id_rfid, $id_riset, $id_prodi, $nim, $nama_anggota, $linkGambar);
     if ($update) {
         header("location: ../../media.php?m=" . $m);
     } else {
         echo "Gagal memperbarui data $m";
     }
-} elseif ($m == 'module' && $act == 'hapus') {
-    $delete = $module->deleteModule($_GET['id']);
+} elseif ($m == 'anggota' && $act == 'hapus') {
+    $delete = $anggota->deleteAnggota($_GET['id']);
     if ($delete) {
         header("location: ../../media.php?m=" . $m);
     } else {

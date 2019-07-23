@@ -55,7 +55,7 @@ switch ($act) {
                 
                 <td class='center aligned'>
                     <a href='?m=$m&act=edit&id=$data[id_riset]'>Edit</a> | ";
-            if ($data['id_riset'] > 4) {
+            if ($data['id_riset'] > 7) {
                 echo "<a href='$aksi?m=$m&act=hapus&id=$data[id_riset]' id='btn-delete' style='cursor: pointer;'
                         onclick='return confirm(`Anda yakin akan menghapus prodi $data[bidang_riset] ID=$data[id_riset] ?`)'
                     >Hapus</a>";

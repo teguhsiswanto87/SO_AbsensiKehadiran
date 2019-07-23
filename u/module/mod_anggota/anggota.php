@@ -38,11 +38,14 @@ switch ($act) {
             <!-- Table head -->
             <thead class=\"blue-grey lighten-4\">
             <tr>
-                <th>ID</th>
+                <th>ID RFID</th>
+                <th>Input By</th>
+                <th>Prodi</th>
+                <th>Riset</th>
+                <th>NIM</th>
                 <th>Nama Anggota</th>
-                <th>Link</th>
-                <th>Icon</th>
-                <th>Aktif</th>
+                <th>Tanggal Terdaftar</th>
+                <th>Photo</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -51,17 +54,37 @@ switch ($act) {
         foreach ($dataAnggota as $data) {
             echo "
             <tr>
-                <td>$data[anggota_id]</td>
-                <td>$data[anggota_name]</td>
-                <td>$data[link]</td>
-                <td>$data[icon]</td>
-                <td>$data[active]</td>
+                <td>$data[id_rfid]</td>
+                <td>$data[username]</td>
+                <td>";
+            include_once "../model/Prodi.php";
+            $prodi = new Prodi();
+            $dataProdi = $prodi->getItemProdi($data['id_prodi']);
+
+            echo " $dataProdi[nama_prodi]
+                </td>
+                <td>";
+            include_once "../model/Riset.php";
+            $riset = new Riset();
+            $dataRiset = $riset->getItemRiset($data['id_riset']);
+
+            echo " $dataRiset[bidang_riset]
+                </td>
+                <td>$data[nim]</td>
+                <td>$data[nama_anggota]</td>
+                <td>$data[tgl_terdaftar]</td>
+                <td>";
+            if ($data['url_photo'] != "") {
+                echo "<i class='fa fa-check'></i >";
+            }
+            echo "
+                </td>
                 
                 <td class='center aligned'>
-                    <a href='?m=$m&act=edit&id=$data[anggota_id]'>Edit</a> | ";
-            if ($data['anggota_id'] > 8) {
-                echo "<a href='$aksi?m=$m&act=hapus&id=$data[anggota_id]' id='btn-delete' style='cursor: pointer;'
-                        onclick='return confirm(`Anda yakin akan menghapus anggota $data[anggota_name] ID=$data[anggota_id] ?`)'
+                    <a href='?m=$m&act=edit&id=$data[id_rfid]'>Edit</a> | ";
+            if ($data['id_rfid'] != "") {
+                echo "<a href='$aksi?m=$m&act=hapus&id=$data[id_rfid]' id='btn-delete' style='cursor: pointer;'
+                        onclick='return confirm(`Anda yakin akan menghapus anggota $data[nama_anggota] ID=$data[id_rfid] ?`)'
                     >Hapus</a>";
             }
 //            href='$aksi?m=$m&act=hapus&id=$data[anggota_id]'
@@ -106,8 +129,9 @@ switch ($act) {
 
                 <form class="ui form" method="POST" name="formAnggota" onsubmit="return anggotaValidation()"
                       action=<?php echo "$aksi?m=$m&act=tambah" ?>>
+                    <input type="hidden" value="<?php echo "$_SESSION[username]"; ?>" name="username">
                     <?php
-                    $acak = rand(1, 99);
+                    $acak = rand(1, 999);
                     $idrfid = "rfid$acak";
                     ?>
                     <div class="form-row">
@@ -115,17 +139,33 @@ switch ($act) {
                             <label for="idrfid">ID RFID</label>
                             <input type="text" class="form-control disabled" name="id_rfid" placeholder="ID RFID"
                                    value="<?php echo $idrfid; ?>"
-                                   id="idrfid" autofocus>
+                                   id="idrfid">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="idprodi">Program Studi</label>
-                            <select name="id_prodi" id="idprodi" class="form-control">
+                            <select name="id_prodi" id="idprodi" class="form-control"
+                                    style='text-transform: capitalize;'>
                                 <?php
                                 include "../model/Prodi.php";
                                 $prodi = new Prodi();
                                 $dataProdi = $prodi->getListProdi();
                                 foreach ($dataProdi as $rProdi) {
-                                    echo "<option value='$rProdi[id_prodi]' style='text-transform: capitalize;'>$rProdi[nama_prodi]</option>";
+                                    echo "<option value='$rProdi[id_prodi]'>$rProdi[nama_prodi]</option>";
+                                }
+
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="idriset">Riset</label>
+                            <select name="id_riset" id="idriset" class="form-control"
+                                    style='text-transform: capitalize;'>
+                                <?php
+                                include "../model/Riset.php";
+                                $riset = new Riset();
+                                $dataRiset = $riset->getListRiset();
+                                foreach ($dataRiset as $rRiset) {
+                                    echo "<option value='$rRiset[id_riset]'>$rRiset[bidang_riset]</option>";
                                 }
 
                                 ?>
@@ -133,13 +173,20 @@ switch ($act) {
                         </div>
                     </div>
 
-                    <!--                    <div class="form-row">-->
-                    <!--                        <div class="form-group col-md-6">-->
-                    <!--                            <label for="nama_anggota">Nama Anggota</label>-->
-                    <!--                            <input type="text" class="form-control" name="anggota_name" placeholder="Nama Anggota"-->
-                    <!--                                   id="nama_anggota" autofocus>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="nim">NIM</label>
+                            <input type="text" class="form-control" name="nim" placeholder="NIM"
+                                   id="nim" autofocus>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nama_anggota">Nama Anggota</label>
+                            <input type="text" class="form-control" name="nama_anggota" placeholder="Nama Anggota"
+                                   id="nama_anggota">
+                        </div>
+
+                    </div>
+
 
                     <button class="btn btn-primary float-sm-right" type="submit">Tambahkan</button>
                 </form>
@@ -149,66 +196,97 @@ switch ($act) {
         <?php
         break;
     case "edit":
-        $data = $anggota->getItemAnggota($_GET['id']);
-        echo "<br><br>
-        <div class=\"card mb-4 wow fadeIn\">
+        $data = $anggota->getItemAnggota($_GET['id']); ?>
+        <br><br>
+        <div class='card mb-4 wow fadeIn'>
 
             <!--Card content-->
-            <div class=\"card-body d-sm-flex \">
-                <a class=\"btn btn-primary btn-md my-0 p\" onclick=\"self.history.back()\"
-                   role=\"button\">
-                    <i class=\"fas fa-chevron-left \"></i> Kembali
+            <div class='card-body d-sm-flex '>
+                <a class='btn btn-primary btn-md my-0 p' onclick='self.history.back()'
+                   role='button'>
+                    <i class='fas fa-chevron-left '></i> Kembali
                 </a>
 
-                <h4 class=\"mb-2 mb-sm-0 pt-1 mx-auto\">
-                    <a href=\"\" target=\"_blank\">Anggota</a>
+                <h4 class='mb-2 mb-sm-0 pt-1 mx-auto'>
+                    <a href='' target='_blank'>Anggota</a>
                     <span>/</span>
                     <span>Edit Anggota</span>
                 </h4>
 
 
             </div>
-            <!--Card content-->
         </div>
-        <div class=\"card wow fadeIn\">
-            <div class=\"card-body\">
-            <form class='ui form' method='POST' name='formAnggota' onsubmit='return anggotaValidation()' action='$aksi?m=$m&act=update' >
-            <input type='hidden' name='id' value='$data[anggota_id]'>
-                    <div class=\"form-row\">
-                        <div class=\"form-group col-md-6\">
-                            <label for=\"nama_anggota\">Nama Anggota</label>
-                            <input type=\"text\" class=\"form-control\" name=\"anggota_name\" placeholder='$data[anggota_name]' value='$data[anggota_name]'
-                                   id=\"nama_anggota\" autofocus>
-                        </div>
-                        <div class=\"form-group col-md-6\">
-                            <label for=\"link_anggota\">Link (contoh => ?m=namaanggota)</label>
-                            <input type=\"text\" class=\"form-control\" name=\"link\" placeholder='$data[link]' value='$data[link]'
-                                   id=\"link_anggota\" autofocus>
-                        </div>
+        <!--Card content-->
+        <div class='card wow fadeIn'>
+        <div class='card-body'>
+            <form class="ui form" method="POST" name="formAnggota" onsubmit="return anggotaValidation()"
+                  action="<?php echo "$aksi?m=$m&act=update" ?>">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="idrfid">ID RFID</label>
+                        <input type="text" class="form-control disabled" name="id_rfid" placeholder="ID RFID"
+                               value="<?php echo $data['id_rfid']; ?>"
+                               id="idrfid">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="idprodi">Program Studi</label>
+                        <select name="id_prodi" id="idprodi" class="form-control"
+                                style='text-transform: capitalize;'>
+                            <?php
+                            include_once "../model/Prodi.php";
+                            $prodi = new Prodi();
+                            $dataProdi = $prodi->getListProdi();
+                            foreach ($dataProdi as $rProdi) {
+                                $selected = "";
+                                if ($rProdi['id_prodi'] == $data['id_prodi']) {
+                                    $selected = "selected";
+                                }
+                                echo "<option value='$rProdi[id_prodi]' $selected>$rProdi[nama_prodi]</option>";
+                            }
+
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="idriset">Riset</label>
+                        <select name="id_riset" id="idriset" class="form-control"
+                                style='text-transform: capitalize;'>
+                            <?php
+                            include_once "../model/Riset.php";
+                            $riset = new Riset();
+                            $dataRiset = $riset->getListRiset();
+                            foreach ($dataRiset as $rRiset) {
+                                $selected = "";
+                                if ($rRiset['id_riset'] == $data['id_riset']) {
+                                    $selected = "selected";
+                                }
+                                echo "<option value='$rRiset[id_riset]' $selected>$rRiset[bidang_riset]</option>";
+                            }
+
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nim">NIM</label>
+                        <input type="text" class="form-control" name="nim" placeholder="<?php echo $data['nim']; ?>"
+                               value="<?php echo $data['nim']; ?>"
+                               id="nim" autofocus>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nama_anggota">Nama Anggota</label>
+                        <input type="text" class="form-control" name="nama_anggota"
+                               placeholder="<?php echo $data['nama_anggota']; ?>"
+                               value="<?php echo $data['nama_anggota']; ?>"
+                               id="nama_anggota">
                     </div>
 
-                    <div class=\"form-row\">
-                        <div class=\"form-group col-md-6\">
-                            <label>Ikon</label>
-                            <input type=\"text\" name=\"icon\" placeholder='$data[icon]' value='$data[icon]' class=\"form-control\">
-                            <small>Referensi ikon: <a href=\"https://fontawesome.com/icons?d=gallery\" target=\"_blank\">Open
-                                    New Tab</a></small>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class=\"form-row\">
-                        <div class=\"form-group col-md-6\">
-                            <label>Aktif</label>
-                            <div class=\"ui toggle checkbox\">";
-        ($data['active'] == 'Y') ? $checked = 'checked' : $checked = '';
-        echo "
-                                <input type=\"checkbox\" name=\"active\" value=\"Y\" $checked>
-                                <label>Tampilkan di Menu Admin</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button class=\"btn btn-primary float-sm-right\" type=\"submit\">Perbarui</button>
-                </form>
-    </div>";
-        break;
-} ?>
+                <button class="btn btn-primary float-sm-right" type="submit">Tambahkan</button>
+            </form>
+        </div>
+        <?php break; ?>
+    <?php } ?>

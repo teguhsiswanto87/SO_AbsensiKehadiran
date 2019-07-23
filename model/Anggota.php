@@ -54,12 +54,13 @@ class Anggota
     }
 
 // update data anggota
-    function updateAnggota($id_rfid, $id_riset, $id_prodi, $nama_anggota, $url_photo)
+    function updateAnggota($id_rfid, $id_riset, $id_prodi, $nim, $nama_anggota, $url_photo)
     {
         $conn = dbConnect();
         if ($conn->connect_errno == 0) {
             $sql = "UPDATE anggota SET id_riset='$id_riset',
                                         id_prodi='$id_prodi',
+                                        nim='$nim',
                                         nama_anggota='$nama_anggota',
                                         url_photo='$url_photo'
                         WHERE id_rfid='$id_rfid'";
