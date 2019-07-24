@@ -9,7 +9,6 @@ $absensi = new Absensi();
 
 switch ($act) {
     default:
-        date_default_timezone_set('Asia/Bangkok');
         $jam = date("H:i");
 
         echo "<br><br>

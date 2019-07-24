@@ -157,6 +157,14 @@ switch ($act) {
                                    id=\"nama_module\" >
                         </div>
                     </div>
+                    
+                    <div class=\"form-row\">
+                        <div class=\"form-group col-md-2\">
+                            <label for=\"nama_module\">Waktu Riset (Jam)</label>
+                            <input type=\"number\" class=\"form-control\" name=\"waktu_riset\" placeholder=\"$data[waktu_riset]\" value=\"$data[waktu_riset]\"
+                                   id=\"nama_module\" min=\"2\" max=\"12\" required>
+                        </div>
+                    </div>
                     <button class=\"btn btn-primary float-sm-right\" type=\"submit\">Perbarui</button>
                 </form>
     </div>";

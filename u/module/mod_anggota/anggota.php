@@ -83,7 +83,7 @@ switch ($act) {
                 <td class='center aligned'>
                     <form action='module/mod_absensi/aksi_absensi.php?m=absensi&act=datang' method='post'>
                         <input type='hidden' value='$data[id_rfid]' name='id_rfid'>
-                        <input type='submit' value='Datang'>| 
+                        <input type='submit' value='Datang'>|
                     </form>
                     <a href='?m=$m&act=edit&id=$data[id_rfid]'>Edit</a> | ";
             if ($data['id_rfid'] != "") {
@@ -289,7 +289,7 @@ switch ($act) {
 
                 </div>
 
-                <button class="btn btn-primary float-sm-right" type="submit">Tambahkan</button>
+                <button class="btn btn-primary float-sm-right" type="submit">Perbarui</button>
             </form>
         </div>
         <?php break; ?>

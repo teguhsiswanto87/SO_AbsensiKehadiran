@@ -32,7 +32,7 @@ if ($m === 'absensi' && $act == 'datang') {
         echo "Gagal memperbarui data $m";
     }
 } elseif ($m == 'absensi' && $act == 'hapus') {
-    $delete = $absensi->deleteAnggota($_GET['id']);
+    $delete = $absensi->deleteAbsensi($_GET['id']);
     if ($delete) {
         header("location: ../../media.php?m=" . $m);
     } else {
